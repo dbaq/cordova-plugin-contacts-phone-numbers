@@ -36,11 +36,13 @@ A full example could be:
 
 ## JSON Response format
 
-The success callback function contains an array of contacts. They all contain:
+The success callback function contains an array of contacts. 
+
+Each entry contains:
 
    * the unique contact id
-   * the name of the contacts
-   * an array containing the number, the normalizedNumber and the type of the number ("WORK", "MOBILE", "HOME" or "OTHER")
+   * the name of the contact
+   * an array containing the number, the normalizedNumber and the type of the number (```WORK```, ```MOBILE```, ```HOME``` or ```OTHER```)
 
 Here is a sample of what you can get:
 
