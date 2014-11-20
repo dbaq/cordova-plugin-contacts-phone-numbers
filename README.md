@@ -90,15 +90,53 @@ Here is a sample of what you can get:
 
 The plugin retrieves **ONLY** the contacts containing one or more phone numbers. It does not allow to modify them (use [the official cordova contacts plugin for that](https://github.com/apache/cordova-plugin-contacts)).
 
-It is difficult and inefficient to retrieve the list of all the contacts with at least a phone number with the official plugin. I needed a fastest way to retrieve a simple list containing the name and the list of phone numbers.
+With the official plugin, it is difficult and inefficient[1] to retrieve the list of all the contacts with at least a phone number (for Android at least). I needed a fastest way to retrieve a simple list containing just the name and the list of phone numbers.
 
 If you need more fields like the email address or if you also need to retrieve the contacts without email address, we can add an option, open an issue and I'll see what I can do.
+
+**[1]** When I say *difficult and inefficient*, it is because on Android, all your Gmail contacts are returned as a contact. [See this issue on stackoverflow](http://stackoverflow.com/questions/20406564/phonegap-contacts-api-android-return-only-phone-contacts-and-not-gmail-conta). With the official you have to retrieve all the contacts and then iterate over the result to filter out what you want.
+
+I executed a small benchmark on my Nexus 5 with Lollipop. The code calls both plugins and displays the result in the console. On this phone I have 1028 contacts but only 71 contacts have at least a phone number. Of course the performances depends on the number of contacts with phone numbers.
+
+**cordova-plugin-contacts**
+
+    *  1 call: 
+        try 1: 2.527ms
+        try 2: 2.581ms
+        try 3: 2.221ms 
+        
+        => average of 2.443ms
+        
+    * 10 calls: 
+        try 1: 6.048ms 
+        try 2: 9.196ms 
+        try 3: 8.981ms
+        
+        => average of 8.075ms for 10 calls
+
+**cordova-plugin-contacts-phone-numbers**
+
+    *  1 call 
+        try 1: 0.145ms 
+        try 2: 0.185ms 
+        try 3: 0.286ms
+        
+        => average of 0.205ms
+        
+    * 10 calls: 
+        try 1: 1195ms 
+        try 2: 1211ms 
+        try 3: 1351ms
+        
+        => average of 1.252ms for 10 calls
 
 ## iOS and Android
 
 The plugin works with iOS and Android. 
 
 iOS does not provide a normalized number like Android. So number === normalizedNumber for iOS.
+
+The Android code is heavily inspired from the official plugin with some tweaks to improve the perfomances.
 
 ## Contributing
 
