@@ -57,55 +57,124 @@ public class ContactsManager extends CordovaPlugin {
     
     private JSONArray list() {
 	    JSONArray contacts = new JSONArray(); 
-	    try {
-		    ContentResolver cr = this.cordova.getActivity().getContentResolver();
-		    String[] projection = new String[] { 
-		    		ContactsContract.Contacts._ID,
-		    		ContactsContract.Contacts.DISPLAY_NAME,
-		    		ContactsContract.Contacts.HAS_PHONE_NUMBER};
-		    // Retrieve only the contacts with a phone number at least
-		    Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, projection, 
-		    		ContactsContract.Contacts.HAS_PHONE_NUMBER + " = 1", null,
-		    		ContactsContract.Contacts._ID + " ASC");
-		    
-		    while (cursor.moveToNext()) {
-		    	String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-		        //  Get all phone numbers for this contact
-		        Cursor phonesCursor = cr.query(Phone.CONTENT_URI, null, Phone.CONTACT_ID + " = " + contactId, null, null);
-		        JSONArray phones = new JSONArray();
-		        while (phonesCursor.moveToNext()) {
-		            int type = phonesCursor.getInt(phonesCursor.getColumnIndex(Phone.TYPE));
-		            JSONObject phone = new JSONObject();
-		            phone.put("number", phonesCursor.getString(phonesCursor.getColumnIndex(Phone.NUMBER)));
-		            phone.put("normalizedNumber", phonesCursor.getString(phonesCursor.getColumnIndex(Phone.NORMALIZED_NUMBER)));
-                    phone.put("type", getPhoneTypeLabel(phonesCursor.getInt(phonesCursor.getColumnIndex(Phone.TYPE))));
-		            phones.put(phone);
-		        }
-		        phonesCursor.close();
-		        
-		        // Create the contact entry
-		    	JSONObject contact = new JSONObject();
-		        contact.put("id", contactId);
-		        contact.put("displayName", cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
-		        contact.put("phoneNumbers", phones);
-		        contacts.put(contact);
-		    }
-		    cursor.close();
-	    } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-        }
+        ContentResolver cr = this.cordova.getActivity().getContentResolver();
+        String[] projection = new String[] { 
+            ContactsContract.Contacts.DISPLAY_NAME,
+            ContactsContract.Contacts.HAS_PHONE_NUMBER,
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+            ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER,
+            ContactsContract.CommonDataKinds.Phone.TYPE,
+            ContactsContract.Data.CONTACT_ID,
+            ContactsContract.Data.MIMETYPE
+        };
+        // Retrieve only the contacts with a phone number at least
+        Cursor cursor = cr.query(ContactsContract.Data.CONTENT_URI,
+                projection, 
+                ContactsContract.Contacts.HAS_PHONE_NUMBER + " = 1",
+                null,
+                ContactsContract.Data.CONTACT_ID + " ASC");
+
+        contacts = populateContactArray(cursor);
         return contacts;
     }
-    
+
+
+    /**
+     * Creates an array of contacts from the cursor you pass in
+     *
+     * @param c            the cursor
+     * @return             a JSONArray of contacts
+     */
+    private JSONArray populateContactArray(Cursor c) {
+
+        JSONArray contacts = new JSONArray();
+
+        String contactId = null;
+        String oldContactId = null;
+        boolean newContact = true;
+        String mimetype = null;
+
+        JSONObject contact = new JSONObject();
+        JSONArray phones = new JSONArray();
+
+        try {
+            if (c.getCount() > 0) {
+                while (c.moveToNext()) {
+                    contactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID)); 
+
+                    if (c.getPosition() == 0) // If we are in the first row set the oldContactId
+                        oldContactId = contactId;
+
+                    // When the contact ID changes we need to push the Contact object to the array of contacts and create new objects.
+                    if (!oldContactId.equals(contactId)) {
+                        // Populate the Contact object with it's arrays and push the contact into the contacts array
+                        contact.put("phoneNumbers", phones);
+                        contacts.put(contact);
+                        // Clean up the objects
+                        contact = new JSONObject();
+                        phones = new JSONArray();
+
+                        // Set newContact to true as we are starting to populate a new contact
+                        newContact = true;
+                    }
+
+                    // When we detect a new contact set the ID. These fields are available in every row in the result set returned.
+                    if (newContact) {
+                        newContact = false;
+                        contact.put("id", contactId);
+                    }
+
+                    mimetype = c.getString(c.getColumnIndex(ContactsContract.Data.MIMETYPE)); // Grab the mimetype of the current row as it will be used in a lot of comparisons
+                    
+                    if (mimetype.equals(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)) {
+                        contact.put("displayName", c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+                    }
+                    else if (mimetype.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
+                        phones.put(getPhoneNumber(c));
+                    }
+
+                    // Set the old contact ID
+                    oldContactId = contactId;
+                } 
+                // Push the last contact into the contacts array
+                contact.put("phoneNumbers", phones);
+                contacts.put(contact);
+            }
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
+        }
+        c.close();
+        return contacts;
+    }
+
+    /**
+     * Create a phone number JSONObject
+     * @param cursor the current database row
+     * @return a JSONObject representing a phone number
+     */
+    private JSONObject getPhoneNumber(Cursor cursor) throws JSONException {
+        JSONObject phoneNumber = new JSONObject();
+        phoneNumber.put("number", cursor.getString(cursor.getColumnIndex(Phone.NUMBER)));
+        phoneNumber.put("normalizedNumber", cursor.getString(cursor.getColumnIndex(Phone.NORMALIZED_NUMBER)));
+        phoneNumber.put("type", getPhoneTypeLabel(cursor.getInt(cursor.getColumnIndex(Phone.TYPE))));
+        return phoneNumber;
+    }
+
+
+    /**
+     * Retrieve the type of the phone number based on the type code
+     * @param type the code of the type
+     * @return a string in caps representing the type of phone number
+     */    
     private String getPhoneTypeLabel(int type) {
-    	String label = "OTHER";
-    	if (type == Phone.TYPE_HOME)
-    		label = "HOME";
-    	else if (type == Phone.TYPE_MOBILE)
-    		label = "MOBILE";
-    	else if (type == Phone.TYPE_WORK)
-    		label = "WORK";
-    	
-    	return label;
+        String label = "OTHER";
+        if (type == Phone.TYPE_HOME)
+            label = "HOME";
+        else if (type == Phone.TYPE_MOBILE)
+            label = "MOBILE";
+        else if (type == Phone.TYPE_WORK)
+            label = "WORK";
+        
+        return label;
     }
 }
