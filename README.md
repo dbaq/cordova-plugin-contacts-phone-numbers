@@ -34,18 +34,69 @@ A full example could be:
 
 ```
 
+## JSON Response format
+
+The success callback function contains an array of contacts. They all contain:
+
+   * the unique contact id
+   * the name of the contacts
+   * an array containing the number, the normalizedNumber and the type of the number ("WORK", "MOBILE", "HOME" or "OTHER")
+
+Here is a sample of what you can get:
+
+```
+   [{
+       "id": "1",
+       "displayName": "Kate Bell",
+       "phoneNumbers": [{
+           "number": "(555) 564-8583",
+           "normalizedNumber": "(555) 564-8583",
+           "type": "MOBILE"
+       }, {
+           "number": "(415) 555-3695",
+           "normalizedNumber": "(415) 555-3695",
+           "type": "WORK"
+       }]
+   }, {
+       "id": "2",
+       "displayName": "Daniel Higgins",
+       "phoneNumbers": [{
+           "number": "555-478-7672",
+           "normalizedNumber": "555-478-7672",
+           "type": "MOBILE"
+       }, {
+           "number": "(408) 555-5270",
+           "normalizedNumber": "(408) 555-5270",
+           "type": "WORK"
+       }, {
+           "number": "(408) 555-3514",
+           "normalizedNumber": "(408) 555-3514",
+           "type": "HOME"
+       }]
+   }, {
+       "id": "3",
+       "displayName": "John Appleseed",
+       "phoneNumbers": [{
+           "number": "888-555-5512",
+           "normalizedNumber": "888-555-5512",
+           "type": "OTHER"
+       }]
+   }]
+```
+
 ## Behaviour
 
 The plugin retrieves **ONLY** the contacts containing one or more phone numbers. It does not allow to modify them (use [the official cordova contacts plugin for that](https://github.com/apache/cordova-plugin-contacts)).
 
 It is difficult and inefficient to retrieve the list of all the contacts with at least a phone number with the official plugin. I needed a fastest way to retrieve a simple list containing the name and the list of phone numbers.
 
-If you need more fields like the email address, open an issue and I'll see what I can do.
-
+If you need more fields like the email address or if you also need to retrieve the contacts without email address, we can add an option, open an issue and I'll see what I can do.
 
 ## iOS and Android
 
-The plugin works with iOS and Android
+The plugin works with iOS and Android. 
+
+iOS does not provide a normalized number like Android. So number === normalizedNumber for iOS.
 
 ## Contributing
 
