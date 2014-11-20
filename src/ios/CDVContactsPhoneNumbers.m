@@ -35,7 +35,7 @@
 
         [abHelper createAddressBook: ^(ABAddressBookRef addrBook) {
             if (addrBook == NULL) { // permission was denied or other error - return error
-                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageToErrorObject:1];
+                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"unauthorized"];
                 [weakSelf.commandDelegate sendPluginResult:result callbackId:callbackId];
                 return;
             }
