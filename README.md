@@ -45,7 +45,7 @@ If you need more fields like the email address, open an issue and I'll see what 
 
 ## iOS and Android
 
-The plugin works with iOS **(TO BE DONE)** and Android
+The plugin works with iOS and Android
 
 ## Contributing
 
