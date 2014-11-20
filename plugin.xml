@@ -29,4 +29,20 @@
 
         <source-file src="src/android/ContactsManager.java" target-dir="src/com/dbaq/cordova/contactsPhoneNumbers" />
     </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="ContactsPhoneNumbers">
+                <param name="ios-package" value="CDVContactsPhoneNumbers"/>
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/CDVContactsPhoneNumbers.h" />
+        <source-file src="src/ios/CDVContactsPhoneNumbers.m" />
+
+        <framework src="AddressBook.framework" weak="true" />
+        <framework src="AddressBookUI.framework" weak="true" />
+        <framework src="CoreGraphics.framework" />
+    </platform>
 </plugin>
