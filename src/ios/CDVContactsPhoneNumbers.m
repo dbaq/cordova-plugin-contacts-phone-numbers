@@ -57,7 +57,7 @@
 
                     for(CFIndex j = 0; j < countPhones; j++) {
                         CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(phones, j);
-                        CFStringRef phoneTypeLabelRef = ABMultiValueCopyLabelAtIndex(phones, i);
+                        CFStringRef phoneTypeLabelRef = ABMultiValueCopyLabelAtIndex(phones, j);
                         NSString *number = (__bridge NSString *) phoneNumberRef;
                         NSString *phoneLabel = @"OTHER";
                         if (phoneTypeLabelRef) {
