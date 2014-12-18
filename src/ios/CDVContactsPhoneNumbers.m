@@ -93,6 +93,8 @@
                     NSMutableDictionary* contactDictionary = [NSMutableDictionary dictionaryWithCapacity:1];
                     [contactDictionary setObject: contactId forKey:@"id"];
                     [contactDictionary setObject: displayName forKey:@"displayName"];
+                    [contactDictionary setObject: firstName forKey:@"firstName"];
+                    [contactDictionary setObject: lastName forKey:@"lastName"];
                     [contactDictionary setObject: phoneNumbersArray forKey:@"phoneNumbers"];
 
                     //add the contact to the list to return
