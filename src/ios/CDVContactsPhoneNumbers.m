@@ -83,9 +83,20 @@
                     }
 
                     // creating the contact object
+                    NSString *displayName;
                     NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+                    if (!firstName)
+                        firstName = @"";
+                    displayName = firstName;
                     NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue(ref, kABPersonLastNameProperty);
-                    NSString *displayName = [NSString stringWithFormat: @"%@ %@", firstName, lastName];
+                    if (!lastName) {
+                        lastName = @"";
+                    }
+                    else {
+                        if (displayName.length)
+                            displayName = [displayName stringByAppendingString:@" "];
+                        displayName = [displayName stringByAppendingString:lastName];
+                    }
                     NSString *contactId = [NSString stringWithFormat:@"%d", ABRecordGetRecordID(ref)];
 
                     //NSLog(@"Name %@ - %@", displayName, contactId);
