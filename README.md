@@ -41,49 +41,59 @@ The success callback function contains an array of contacts.
 Each entry contains:
 
    * the unique contact id
-   * the name of the contact
+   * the name of the contact (first name, last name, display name)
    * an array containing the number, the normalizedNumber and the type of the number (```WORK```, ```MOBILE```, ```HOME``` or ```OTHER```)
 
 Here is a sample of what you can get:
 
 ```
-   [{
-       "id": "1",
-       "displayName": "Kate Bell",
-       "phoneNumbers": [{
-           "number": "(555) 564-8583",
-           "normalizedNumber": "(555) 564-8583",
-           "type": "MOBILE"
-       }, {
-           "number": "(415) 555-3695",
-           "normalizedNumber": "(415) 555-3695",
-           "type": "WORK"
-       }]
-   }, {
-       "id": "2",
-       "displayName": "Daniel Higgins",
-       "phoneNumbers": [{
-           "number": "555-478-7672",
-           "normalizedNumber": "555-478-7672",
-           "type": "MOBILE"
-       }, {
-           "number": "(408) 555-5270",
-           "normalizedNumber": "(408) 555-5270",
-           "type": "WORK"
-       }, {
-           "number": "(408) 555-3514",
-           "normalizedNumber": "(408) 555-3514",
-           "type": "HOME"
-       }]
-   }, {
-       "id": "3",
-       "displayName": "John Appleseed",
-       "phoneNumbers": [{
-           "number": "888-555-5512",
-           "normalizedNumber": "888-555-5512",
-           "type": "OTHER"
-       }]
-   }]
+    [{
+        "id": "1",
+        "firstName": "Kate",
+        "lastName": "Bell",
+        "displayName": "Kate Bell",
+        "phoneNumbers": [{
+            "number": "(555) 564-8583",
+            "normalizedNumber": "(555) 564-8583",
+            "type": "MOBILE"
+        }, {
+            "number": "(415) 555-3695",
+            "normalizedNumber": "(415) 555-3695",
+            "type": "OTHER"
+        }]
+    }, {
+        "id": "2",
+        "firstName": "Daniel",
+        "lastName": "Higgins",
+        "displayName": "Daniel Higgins",
+        "phoneNumbers": [{
+            "number": "555-478-7672",
+            "normalizedNumber": "555-478-7672",
+            "type": "HOME"
+        }, {
+            "number": "(408) 555-5270",
+            "normalizedNumber": "(408) 555-5270",
+            "type": "MOBILE"
+        }, {
+            "number": "(408) 555-3514",
+            "normalizedNumber": "(408) 555-3514",
+            "type": "OTHER"
+        }]
+    }, {
+        "id": "3",
+        "firstName": "John",
+        "lastName": "Appleseed",
+        "displayName": "John Appleseed",
+        "phoneNumbers": [{
+            "number": "888-555-5512",
+            "normalizedNumber": "888-555-5512",
+            "type": "MOBILE"
+        }, {
+            "number": "888-555-1212",
+            "normalizedNumber": "888-555-1212",
+            "type": "HOME"
+        }]
+    }]
 ```
 
 ## Behaviour
@@ -94,7 +104,7 @@ With the official plugin, it is difficult and inefficient[1] to retrieve the lis
 
 If you need more fields like the email address or if you also need to retrieve the contacts without email address, we can add an option, open an issue and I'll see what I can do.
 
-**[1]** When I say *difficult and inefficient*, it is because on Android, all your Gmail contacts are returned as a contact. [See this issue on stackoverflow](http://stackoverflow.com/questions/20406564/phonegap-contacts-api-android-return-only-phone-contacts-and-not-gmail-conta). With the official you have to retrieve all the contacts and then iterate over the result to filter out what you want.
+**[1]** When I say *difficult and inefficient*, it is because on Android, all your Gmail contacts are returned as a contact. [See this issue on stackoverflow](http://stackoverflow.com/questions/20406564/phonegap-contacts-api-android-return-only-phone-contacts-and-not-gmail-conta). With the official plugin you have to retrieve all the contacts and then iterate over the result to filter out what you want.
 
 I executed a small benchmark on my Nexus 5 with Lollipop. The code calls both plugins and displays the result in the console. On this phone I have 1028 contacts but only 71 contacts have at least a phone number. Of course the performances depends on the number of contacts with phone numbers.
 
