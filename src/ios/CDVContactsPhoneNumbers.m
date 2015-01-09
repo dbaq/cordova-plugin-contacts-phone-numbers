@@ -65,8 +65,20 @@
                                 phoneLabel = @"WORK";
                             } else if (CFEqual(phoneTypeLabelRef, kABHomeLabel)) {
                                 phoneLabel = @"HOME";
-                            }  else if (CFEqual(phoneTypeLabelRef, kABPersonPhoneMobileLabel)) {
+                            } else if (CFEqual(phoneTypeLabelRef, kABPersonPhoneMobileLabel)) {
                                 phoneLabel = @"MOBILE";
+                            } else if (CFEqual(phoneTypeLabelRef, kABPersonPhoneIPhoneLabel)) {
+                                phoneLabel = @"IPHONE";
+                            } else if (CFEqual(phoneTypeLabelRef, kABPersonPhoneMainLabel)) {
+                                phoneLabel = @"MAIN";
+                            } else if (CFEqual(phoneTypeLabelRef, kABPersonPhoneHomeFAXLabel)) {
+                                phoneLabel = @"HOMEFAX";
+                            } else if (CFEqual(phoneTypeLabelRef, kABPersonPhoneWorkFAXLabel)) {
+                                phoneLabel = @"WORKFAX";
+                            } else if (CFEqual(phoneTypeLabelRef, kABPersonPhoneOtherFAXLabel)) {
+                                phoneLabel = @"OTHERFAX";
+                            } else if (CFEqual(phoneTypeLabelRef, kABPersonPhonePagerLabel)) {
+                                phoneLabel = @"PAGER";
                             }
                         }
 
