@@ -111,34 +111,34 @@ I executed a small benchmark on my Nexus 5 with Lollipop. The code calls both pl
 **cordova-plugin-contacts**
 
     *  1 call: 
-        try 1: 2.527ms
-        try 2: 2.581ms
-        try 3: 2.221ms 
+        try 1: 2.527s
+        try 2: 2.581s
+        try 3: 2.221s 
         
-        => average of 2.443ms
+        => average of 2.443ss
         
     * 10 calls: 
-        try 1: 6.048ms 
-        try 2: 9.196ms 
-        try 3: 8.981ms
+        try 1: 6.048s 
+        try 2: 9.196s 
+        try 3: 8.981s
         
-        => average of 8.075ms for 10 calls
+        => average of 8.075s for 10 calls
 
 **cordova-plugin-contacts-phone-numbers**
 
     *  1 call 
-        try 1: 0.145ms 
-        try 2: 0.185ms 
-        try 3: 0.286ms
+        try 1: 0.145s 
+        try 2: 0.185s 
+        try 3: 0.286s
         
-        => average of 0.205ms
+        => average of 0.205s
         
     * 10 calls: 
-        try 1: 1195ms 
-        try 2: 1211ms 
-        try 3: 1351ms
+        try 1: 1.195s 
+        try 2: 1.211s 
+        try 3: 1.351s
         
-        => average of 1.252ms for 10 calls
+        => average of 1.252s for 10 calls
 
 ## iOS and Android
 
