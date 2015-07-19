@@ -115,7 +115,7 @@ I executed a small benchmark on my Nexus 5 with Lollipop. The code calls both pl
         try 2: 2.581s
         try 3: 2.221s 
         
-        => average of 2.443ss
+        => average of 2.443s
         
     * 10 calls: 
         try 1: 6.048s 
