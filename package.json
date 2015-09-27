@@ -1,0 +1,32 @@
+{
+  "name": "cordova-plugin-contacts-list",
+  "version": "0.0.3",
+  "description": "Cordova Plugin to List Contacts Phone Numbers ",
+  "cordova": {
+    "id": "com.dbaq.cordova.contactsPhoneNumbers",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbaq/cordova-plugin-contacts-phone-numbers.git"
+  },
+  "keywords": [
+    "cordova",
+    "contacts",
+    "list",
+    "phone",
+    "numbers",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Didier Baquier",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/dbaq/cordova-plugin-contacts-phone-numbers/issues"
+  },
+  "homepage": "https://github.com/dbaq/cordova-plugin-contacts-phone-numbers#readme"
+}
