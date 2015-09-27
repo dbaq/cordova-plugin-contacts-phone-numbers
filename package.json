@@ -1,5 +1,5 @@
 {
-  "name": "cordova-plugin-contacts-list",
+  "name": "cordova-plugin-contacts-phonenumbers",
   "version": "0.0.4",
   "description": "Cordova Plugin to List Contacts Phone Numbers ",
   "cordova": {
