@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-contacts-list",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Cordova Plugin to List Contacts Phone Numbers ",
   "cordova": {
     "id": "com.dbaq.cordova.contactsPhoneNumbers",
