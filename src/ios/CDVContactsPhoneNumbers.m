@@ -30,7 +30,7 @@
 
     [self.commandDelegate runInBackground:^{
 
-        CDVAddressBookHelper* abHelper = [[CDVAddressBookHelper alloc] init];
+        CDVAddressBookPhoneNumberHelper* abHelper = [[CDVAddressBookPhoneNumberHelper alloc] init];
         CDVContactsPhoneNumbers* __weak weakSelf = self; 
 
         [abHelper createAddressBook: ^(ABAddressBookRef addrBook) {
@@ -141,7 +141,7 @@
 
 
 
-@implementation CDVAddressBookHelper
+@implementation CDVAddressBookPhoneNumberHelper
 
 /**
  * NOTE: workerBlock is responsible for releasing the addressBook that is passed to it
