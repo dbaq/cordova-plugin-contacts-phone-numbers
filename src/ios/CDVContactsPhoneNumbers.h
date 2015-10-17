@@ -41,7 +41,7 @@
 typedef void (^ CDVAddressBookWorkerBlock)(
     ABAddressBookRef         addrBook
     );
-@interface CDVAddressBookHelper : NSObject
+@interface CDVAddressBookPhoneNumberHelper : NSObject
 {}
 
 - (void)createAddressBook:(CDVAddressBookWorkerBlock)workerBlock;
