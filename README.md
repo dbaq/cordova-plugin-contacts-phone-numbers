@@ -3,7 +3,7 @@
 Cross-platform plugin for Cordova / PhoneGap to list all the contacts with at least a phone number.
 
 ## Add Contact ##
-Use the  `navigator.contactsPhoneNumbers` with the methods
+Use the  `navigator.contactsPhoneNumbers` with the method
 
   `add(phone)`
 
