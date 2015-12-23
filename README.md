@@ -20,7 +20,7 @@ Use the  `navigator.contactsPhoneNumbers` with the method
 ```
 
 ## Installing the plugin ##
-```
+
 Use this repository
 ```
 cordova plugin add https://github.com/CallPal/cordova-plugin-contacts-phone-numbers
