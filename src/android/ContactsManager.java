@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -21,13 +22,14 @@ import android.util.Log;
 public class ContactsManager extends CordovaPlugin {
 
     private CallbackContext callbackContext;
-    
+
     private JSONArray executeArgs;
-    
+
     public static final String ACTION_LIST_CONTACTS = "list";
-    
+    public static final String ACTION_ADD_CONTACTS = "add";
+
     private static final String LOG_TAG = "Contact Phone Numbers";
-    
+
     public ContactsManager() {}
 
     /**
@@ -39,26 +41,34 @@ public class ContactsManager extends CordovaPlugin {
      * @return                  True if the action was valid, false otherwise.
      */
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-        
+
         this.callbackContext = callbackContext;
-        this.executeArgs = args; 
-        
+        this.executeArgs = args;
+
         if (ACTION_LIST_CONTACTS.equals(action)) {
             this.cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
                     callbackContext.success(list());
                 }
-            });    
+            });
             return true;
+        }else if (ACTION_ADD_CONTACTS.equals(action)) {
+          Context context = this.cordova.getActivity().getApplicationContext();
+          //or Context context=cordova.getActivity().getApplicationContext();
+          final Intent intent = new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI);
+          intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          intent.putExtra("phone", args.getString(0));
+          context.startActivity(intent);
+          return true;
         }
-        
+
         return false;
     }
-    
+
     private JSONArray list() {
-        JSONArray contacts = new JSONArray(); 
+        JSONArray contacts = new JSONArray();
         ContentResolver cr = this.cordova.getActivity().getContentResolver();
-        String[] projection = new String[] { 
+        String[] projection = new String[] {
             ContactsContract.Contacts.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME,
             ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,
@@ -71,7 +81,7 @@ public class ContactsManager extends CordovaPlugin {
         };
         // Retrieve only the contacts with a phone number at least
         Cursor cursor = cr.query(ContactsContract.Data.CONTENT_URI,
-                projection, 
+                projection,
                 ContactsContract.Contacts.HAS_PHONE_NUMBER + " = 1",
                 null,
                 ContactsContract.Data.CONTACT_ID + " ASC");
@@ -102,7 +112,7 @@ public class ContactsManager extends CordovaPlugin {
         try {
             if (c.getCount() > 0) {
                 while (c.moveToNext()) {
-                    contactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID)); 
+                    contactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID));
 
                     if (c.getPosition() == 0) // If we are in the first row set the oldContactId
                         oldContactId = contactId;
@@ -127,7 +137,7 @@ public class ContactsManager extends CordovaPlugin {
                     }
 
                     mimetype = c.getString(c.getColumnIndex(ContactsContract.Data.MIMETYPE)); // Grab the mimetype of the current row as it will be used in a lot of comparisons
-                    
+
                     if (mimetype.equals(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)) {
                         contact.put("firstName", c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME)));
                         contact.put("lastName", c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME)));
@@ -139,7 +149,7 @@ public class ContactsManager extends CordovaPlugin {
 
                     // Set the old contact ID
                     oldContactId = contactId;
-                } 
+                }
                 // Push the last contact into the contacts array
                 contact.put("phoneNumbers", phones);
                 contacts.put(contact);
@@ -171,7 +181,7 @@ public class ContactsManager extends CordovaPlugin {
      * Retrieve the type of the phone number based on the type code
      * @param type the code of the type
      * @return a string in caps representing the type of phone number
-     */    
+     */
     private String getPhoneTypeLabel(int type) {
         String label = "OTHER";
         if (type == Phone.TYPE_HOME)
@@ -180,7 +190,7 @@ public class ContactsManager extends CordovaPlugin {
             label = "MOBILE";
         else if (type == Phone.TYPE_WORK)
             label = "WORK";
-        
+
         return label;
     }
 }
