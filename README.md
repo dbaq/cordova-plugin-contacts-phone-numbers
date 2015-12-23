@@ -21,11 +21,9 @@ Use the  `navigator.contactsPhoneNumbers` with the method
 
 ## Installing the plugin ##
 ```
-cordova plugin add cordova-plugin-contacts-phonenumbers
+Use this repository
 ```
-or use this repository (unstable)
-```
-cordova plugin add https://github.com/dbaq/cordova-plugin-contacts-phone-numbers.git
+cordova plugin add https://github.com/CallPal/cordova-plugin-contacts-phone-numbers
 ```
 ## Using the plugin ##
 The plugin creates the object `navigator.contactsPhoneNumbers` with the methods
