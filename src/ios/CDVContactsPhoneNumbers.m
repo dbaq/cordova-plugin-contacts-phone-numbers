@@ -140,22 +140,21 @@
 
 - (void)add:(CDVInvokedUrlCommand*)command
 {
-  CNPhoneNumber *number = [[CNPhoneNumber alloc] initWithStringValue:@"786500217"];
-  NSString *label = @"Mobile";
+    CNPhoneNumber *number = [[CNPhoneNumber alloc] initWithStringValue:@"786500217"];
+    NSString *label = @"Mobile";
 
-  CNLabeledValue *phoneNumber = [[CNLabeledValue alloc] initWithLabel:label value:number];
+    CNLabeledValue *phoneNumber = [[CNLabeledValue alloc] initWithLabel:label value:number];
 
-  NSArray *phoneNumbersArray = @[phoneNumber];
+    NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = @[phoneNumber];
 
-  NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = [[NSArray alloc] initWithArray:phoneNumbersArray];
+    CNMutableContact * contact = [[CNMutableContact alloc] init];
+    contact.phoneNumbers = phoneNumbers;
 
-  CNMutableContact * contact = [[CNMutableContact alloc] init];
-  contact.phoneNumbers = phoneNumbers;
-
-  CNContactViewController *addContactVC = [CNContactViewController viewControllerForNewContact:contact];
-  addContactVC.delegate                 = self;
-  UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addContactVC];
-  [self presentViewController:navController animated:NO completion:nil];
+    CNContactViewController *addContactVC = [CNContactViewController viewControllerForNewContact:contact];
+    addContactVC.delegate                 = self;
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addContactVC];
+    [self presentViewController:navController animated:NO completion:nil];
+    
   return;
 }
 @end
