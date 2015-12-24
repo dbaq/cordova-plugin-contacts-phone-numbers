@@ -20,6 +20,7 @@
 #import <Foundation/Foundation.h>
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import <ContactsUI/ContactsUI.h>
 #import <Cordova/CDVPlugin.h>
 
 @interface CDVContactsPhoneNumbers : CDVPlugin
@@ -35,6 +36,7 @@
  *  2:  errorCallback - optional javascript function to be called in the event of an error
  */
 - (void)list:(CDVInvokedUrlCommand*)command;
+- (void)add:(CDVInvokedUrlCommand*)command;
 
 @end
 

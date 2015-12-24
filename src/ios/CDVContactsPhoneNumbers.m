@@ -31,7 +31,7 @@
     [self.commandDelegate runInBackground:^{
 
         CDVAddressBookPhoneNumberHelper* abHelper = [[CDVAddressBookPhoneNumberHelper alloc] init];
-        CDVContactsPhoneNumbers* __weak weakSelf = self; 
+        CDVContactsPhoneNumbers* __weak weakSelf = self;
 
         [abHelper createAddressBook: ^(ABAddressBookRef addrBook) {
             if (addrBook == NULL) { // permission was denied or other error - return error
@@ -89,7 +89,7 @@
                         [phoneNumberDictionary setObject: phoneLabel forKey:@"type"];
                         // adding this phone number to the list of phone numbers for this user
                         [phoneNumbersArray addObject:phoneNumberDictionary];
-                        
+
                         if (phoneNumberRef) CFRelease(phoneNumberRef);
                         if (phoneTypeLabelRef) CFRelease(phoneTypeLabelRef);
                     }
@@ -122,7 +122,7 @@
 
                     //add the contact to the list to return
                     [contactsWithPhoneNumbers addObject:contactDictionary];
-                }                
+                }
                 CFRelease(phones);
             }
 
@@ -136,6 +136,27 @@
     }];
 
     return;
+}
+
+- (void)add:(CDVInvokedUrlCommand*)command
+{
+  CNPhoneNumber *number = [[CNPhoneNumber alloc] initWithStringValue:@"786500217"];
+  NSString *label = @"Mobile";
+
+  CNLabeledValue *phoneNumber = [[CNLabeledValue alloc] initWithLabel:label value:number];
+
+  NSArray *phoneNumbersArray = @[phoneNumber];
+
+  NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = [[NSArray alloc] initWithArray:phoneNumbersArray];
+
+  CNMutableContact * contact = [[CNMutableContact alloc] init];
+  contact.phoneNumbers = phoneNumbers;
+
+  CNContactViewController *addContactVC = [CNContactViewController viewControllerForNewContact:contact];
+  addContactVC.delegate                 = self;
+  UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addContactVC];
+  [self presentViewController:navController animated:NO completion:nil];
+  return;
 }
 @end
 
