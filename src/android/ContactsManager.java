@@ -57,13 +57,13 @@ public class ContactsManager extends CordovaPlugin {
 
           JSONArray phoneNumbers = (JSONArray) args.get(0);
 
-          final Intent intent = new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI);
+          final Intent intent = new Intent(Intent.ACTION_INSERT, ContactsContract.Contacts.CONTENT_URI);
           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
           for (int i = 0; i < phoneNumbers.length(); i++) {
             JSONObject phone = (JSONObject) phoneNumbers.get(0);
-            intent.putExtra(Intents.Insert.PHONE, phone.getString("number"));
-            intent.putExtra(Intents.Insert.PHONE_TYPE, Phone.TYPE_WORK);
+            intent.putExtra(ContactsContract.Intents.Insert.PHONE, phone.getString("number"));
+            intent.putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK);
           }
 
           context.startActivity(intent);
