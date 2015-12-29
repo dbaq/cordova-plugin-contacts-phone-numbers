@@ -64,7 +64,7 @@ public class ContactsManager extends CordovaPlugin {
           //or Context context=cordova.getActivity().getApplicationContext();
           final Intent intent = new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI);
           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          intent.putExtra(firstPhone.getString("label"), firstPhone.getString("number"));
+          intent.putExtra("phone", firstPhone.getString("number"));
           context.startActivity(intent);
           return true;
         }
