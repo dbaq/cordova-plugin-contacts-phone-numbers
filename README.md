@@ -5,7 +5,7 @@ Cross-platform plugin for Cordova / PhoneGap to list all the contacts with at le
 ## Add Contact ##
 Use the  `navigator.contactsPhoneNumbers` with the method
 
-  `add(phone)`
+  `add(data)`
 
   A full example could be:
 
