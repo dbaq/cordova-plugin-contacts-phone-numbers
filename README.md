@@ -15,14 +15,14 @@ Use the  `navigator.contactsPhoneNumbers` with the method
    // after deviceready
    //
    //
-   var name = "Elza Pato";
+   var name = "Call Pal";
    var firstNumber = {
      label: 'mobile',
      number: $scope.number
    };
    var secondNumber = {
-     label: 'home',
-     number: '7864500211'
+     label: 'mobile',
+     number: '17864500211'
    };
    var data = {
      name: name,
