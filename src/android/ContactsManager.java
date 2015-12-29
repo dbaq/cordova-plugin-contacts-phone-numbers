@@ -55,17 +55,18 @@ public class ContactsManager extends CordovaPlugin {
         }else if (ACTION_ADD_CONTACTS.equals(action)) {
           Context context = this.cordova.getActivity().getApplicationContext();
 
-          JSONArray group = (JSONArray) args.get(0);
+          JSONArray phoneNumbers = (JSONArray) args.get(0);
 
-          JSONObject firstPhone = (JSONObject) group.get(0);
-
-          Log.d("data plugin:" ,String.valueOf(firstPhone.getString("label")));
-
-          //or Context context=cordova.getActivity().getApplicationContext();
           final Intent intent = new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI);
           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          intent.putExtra("phone", firstPhone.getString("number"));
+
+          for (int i = 0; i < phoneNumbers.length(); i++) {
+            JSONObject phone = (JSONObject) phoneNumbers.get(0);
+            intent.putExtra("phone", phone.getString("number"));
+          }
+
           context.startActivity(intent);
+
           return true;
         }
 
