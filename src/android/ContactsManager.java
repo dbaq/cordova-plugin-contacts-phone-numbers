@@ -62,8 +62,22 @@ public class ContactsManager extends CordovaPlugin {
 
           for (int i = 0; i < phoneNumbers.length(); i++) {
             JSONObject phone = (JSONObject) phoneNumbers.get(i);
-            intent.putExtra(ContactsContract.Intents.Insert.PHONE, phone.getString("number"));
-            intent.putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK);
+            switch(i){
+              case 1:
+                intent.putExtra(ContactsContract.Intents.Insert.PHONE, phone.getString("number"));
+                intent.putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
+                break;
+              case 2:
+                intent.putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE, phone.getString("number"));
+                intent.putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
+                break;
+              case 2:
+                intent.putExtra(ContactsContract.Intents.Insert.TERTIARY_PHONE, phone.getString("number"));
+                intent.putExtra(ContactsContract.Intents.Insert.TERTIARY_PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
+                break;
+            }
+
+
           }
 
           context.startActivity(intent);
