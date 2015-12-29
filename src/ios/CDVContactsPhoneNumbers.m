@@ -140,6 +140,8 @@
 
 - (void)add:(CDVInvokedUrlCommand*)command
 {
+
+    CDVContactsPhoneNumbers* __weak weakSelf = self;
     CNPhoneNumber *number = [[CNPhoneNumber alloc] initWithStringValue:@"786500217"];
     NSString *label = @"Mobile";
 
@@ -153,8 +155,8 @@
     CNContactViewController *addContactVC = [CNContactViewController viewControllerForNewContact:contact];
     addContactVC.delegate                 = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addContactVC];
-    [self presentViewController:navController animated:NO completion:nil];
-    
+    [weakSelf.viewController presentViewController:navController animated:NO completion:nil];
+
   return;
 }
 @end

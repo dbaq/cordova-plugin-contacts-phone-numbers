@@ -38,14 +38,14 @@ var contactsList = {
         exec(successCB, errorCB, "ContactsPhoneNumbers", "list", []);
     },
 
-    add:function(phone){
-
+    add:function(data){
+      console.log(data);
      exec(function(result){
          /*alert("OK" + reply);*/
        },
       function(result){
         /*alert("Error" + reply);*/
-      },"ContactsPhoneNumbers", "add",[phone]);
+      },"ContactsPhoneNumbers", "add",[data]);
     }
 };
 
