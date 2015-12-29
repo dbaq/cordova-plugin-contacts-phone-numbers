@@ -55,7 +55,7 @@ public class ContactsManager extends CordovaPlugin {
         }else if (ACTION_ADD_CONTACTS.equals(action)) {
           Context context = this.cordova.getActivity().getApplicationContext();
 
-          JSONObject group = (JSONObject) args.get(0);
+          JSONArray group = (JSONArray) args.get(0);
           Log.d("data plugin:" ,String.valueOf(group));
 
           //or Context context=cordova.getActivity().getApplicationContext();
