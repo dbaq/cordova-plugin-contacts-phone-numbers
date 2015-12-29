@@ -57,7 +57,7 @@ public class ContactsManager extends CordovaPlugin {
 
           JSONArray group = (JSONArray) args.get(0);
 
-          JSONArray firstPhone = (JSONArray) group.get(0);
+          JSONObject firstPhone = (JSONObject) group.get(0);
 
           Log.d("data plugin:" ,String.valueOf(firstPhone));
 
