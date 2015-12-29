@@ -15,7 +15,20 @@ Use the  `navigator.contactsPhoneNumbers` with the method
    // after deviceready
    //
    //
-   navigator.contactsPhoneNumbers.add($scope.number);
+   var name = "Elza Pato";
+   var firstNumber = {
+     label: 'mobile',
+     number: $scope.number
+   };
+   var secondNumber = {
+     label: 'home',
+     number: '7864500211'
+   };
+   var data = {
+     name: name,
+     phones: [firstNumber, secondNumber]
+   };
+   navigator.contactsPhoneNumbers.add(data);
 
 ```
 
