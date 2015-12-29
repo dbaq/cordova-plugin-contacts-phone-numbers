@@ -59,7 +59,7 @@ public class ContactsManager extends CordovaPlugin {
 
           JSONObject firstPhone = (JSONObject) group.get(0);
 
-          Log.d("data plugin:" ,String.valueOf(firstPhone));
+          Log.d("data plugin:" ,String.valueOf(firstPhone.getString("number")));
 
           //or Context context=cordova.getActivity().getApplicationContext();
           final Intent intent = new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI);
