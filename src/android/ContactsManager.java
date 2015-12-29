@@ -54,6 +54,8 @@ public class ContactsManager extends CordovaPlugin {
             return true;
         }else if (ACTION_ADD_CONTACTS.equals(action)) {
           Context context = this.cordova.getActivity().getApplicationContext();
+          Log.d("data plugin:" ,String.valueOf(args));
+          //JSONObject jsonObj = new JSONObject(json);
           //or Context context=cordova.getActivity().getApplicationContext();
           final Intent intent = new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI);
           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
