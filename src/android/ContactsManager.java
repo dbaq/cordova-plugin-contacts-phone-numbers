@@ -58,9 +58,6 @@ public class ContactsManager extends CordovaPlugin {
           JSONObject contactData = (JSONObject) args.get(0);
           JSONArray phoneNumbers = (JSONArray) contactData.getJSONArray("phones");
 
-          Log.d("data-----:" ,String.valueOf(phoneNumbers));
-
-          /*JSONArray phoneNumbers = (JSONArray) args.get(0);
 
           final Intent intent = new Intent(Intent.ACTION_INSERT, ContactsContract.Contacts.CONTENT_URI);
           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -87,7 +84,7 @@ public class ContactsManager extends CordovaPlugin {
 
           }
 
-          context.startActivity(intent);*/
+          context.startActivity(intent);
 
           return true;
         }
