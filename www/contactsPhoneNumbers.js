@@ -39,7 +39,7 @@ var contactsList = {
     },
 
     add:function(data){
-      //console.log(data);
+      console.log(data);
      exec(function(result){
          /*alert("OK" + reply);*/
        },
