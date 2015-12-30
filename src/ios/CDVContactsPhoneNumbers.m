@@ -141,21 +141,27 @@
 - (void)add:(CDVInvokedUrlCommand*)command
 {
 
-    CDVContactsPhoneNumbers* __weak weakSelf = self;
-    CNPhoneNumber *number = [[CNPhoneNumber alloc] initWithStringValue:@"786500217"];
-    NSString *label = @"Mobile";
+  CNPhoneNumber *number = [[CNPhoneNumber alloc] initWithStringValue:@"1786500217"];
+  NSString *label = @"Mobile";
 
-    CNLabeledValue *phoneNumber = [[CNLabeledValue alloc] initWithLabel:label value:number];
+  CNLabeledValue *phoneNumber = [[CNLabeledValue alloc] initWithLabel:label value:number];
 
-    NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = @[phoneNumber];
+  CNPhoneNumber *number2 = [[CNPhoneNumber alloc] initWithStringValue:@"1786501215"];
+  NSString *label2 = @"iPhone";
 
-    CNMutableContact * contact = [[CNMutableContact alloc] init];
-    contact.phoneNumbers = phoneNumbers;
+  CNLabeledValue *phoneNumber2 = [[CNLabeledValue alloc] initWithLabel:label2 value:number2];
 
-    CNContactViewController *addContactVC = [CNContactViewController viewControllerForNewContact:contact];
-    addContactVC.delegate                 = self;
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addContactVC];
-    [weakSelf.viewController presentViewController:navController animated:NO completion:nil];
+
+  NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = @[phoneNumber, phoneNumber2];
+
+  CNMutableContact * contact = [[CNMutableContact alloc] init];
+  contact.phoneNumbers = phoneNumbers;
+  contact.givenName = @"Zatlan";
+  contact.familyName = @"Ibrahimovic";
+
+  CNContactViewController *addContactVC = [CNContactViewController viewControllerForNewContact:contact];
+  UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addContactVC];
+  [self.viewController presentViewController:navController animated:NO completion:nil];
 
   return;
 }

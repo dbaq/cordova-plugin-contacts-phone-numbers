@@ -43,7 +43,6 @@
 
         <framework src="AddressBook.framework" weak="true" />
         <framework src="AddressBookUI.framework" weak="true" />
-        <framework src="ContactsUI.framework" weak="true" />
         <framework src="CoreGraphics.framework" />
     </platform>
 </plugin>
