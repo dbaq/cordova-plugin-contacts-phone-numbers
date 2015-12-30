@@ -141,29 +141,59 @@
 - (void)add:(CDVInvokedUrlCommand*)command
 {
 
-  CNPhoneNumber *number = [[CNPhoneNumber alloc] initWithStringValue:@"1786500217"];
-  NSString *label = @"Mobile";
+  NSLog(@"data----- %@", [command argumentAtIndex:0][@"phones"]);
 
-  CNLabeledValue *phoneNumber = [[CNLabeledValue alloc] initWithLabel:label value:number];
-
-  CNPhoneNumber *number2 = [[CNPhoneNumber alloc] initWithStringValue:@"1786501215"];
-  NSString *label2 = @"iPhone";
-
-  CNLabeledValue *phoneNumber2 = [[CNLabeledValue alloc] initWithLabel:label2 value:number2];
-
-
-  NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = @[phoneNumber, phoneNumber2];
+  //NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = @[phoneNumber, phoneNumber2];
 
   CNMutableContact * contact = [[CNMutableContact alloc] init];
+  NSMutableArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = [[NSMutableArray alloc] init];
+
+  NSArray *separatedName = [[command argumentAtIndex:0][@"name"] componentsSeparatedByCharactersInSet:
+                      [NSCharacterSet characterSetWithCharactersInString:@" "]
+                    ];
+
+  if([separatedName count] == 1)
+  {
+    contact.givenName = [separatedName objectAtIndex:0];
+  }
+  else if([separatedName count] == 2)
+  {
+    contact.givenName = [separatedName objectAtIndex:0];
+    contact.familyName = [separatedName objectAtIndex:1];
+  }
+  else if([separatedName count] == 3)
+  {
+    contact.givenName = [separatedName objectAtIndex:0];
+    contact.familyName = [NSString stringWithFormat:@"%@ %@", [separatedName objectAtIndex:1], [separatedName objectAtIndex:2]];
+  }
+
+  for (id phone in [command argumentAtIndex:0][@"phones"]) {
+      //NSArray *userApollo = user;
+
+      CNPhoneNumber *number = [[CNPhoneNumber alloc] initWithStringValue:phone[@"number"]];
+      NSString *label = phone[@"label"];
+      CNLabeledValue *phoneNumber = [[CNLabeledValue alloc] initWithLabel:label value:number];
+
+      [phoneNumbers addObject:phoneNumber];
+  }
+
+
   contact.phoneNumbers = phoneNumbers;
-  contact.givenName = @"Zatlan";
-  contact.familyName = @"Ibrahimovic";
 
   CNContactViewController *addContactVC = [CNContactViewController viewControllerForNewContact:contact];
+  addContactVC.delegate                 = self;
   UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addContactVC];
-  [self.viewController presentViewController:navController animated:NO completion:nil];
+  [self.viewController presentViewController:navController animated:YES completion:nil];
+
+
 
   return;
+}
+- (void)contactViewController:(CNContactViewController *)viewController
+	   didCompleteWithContact:(CNContact *)contact{
+
+	[self.viewController dismissModalViewControllerAnimated:YES];
+
 }
 @end
 
