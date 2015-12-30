@@ -141,8 +141,6 @@
 - (void)add:(CDVInvokedUrlCommand*)command
 {
 
-  NSLog(@"data----- %@", [command argumentAtIndex:0][@"phones"]);
-
   //NSArray <CNLabeledValue<CNPhoneNumber *> *> *phoneNumbers = @[phoneNumber, phoneNumber2];
 
   CNMutableContact * contact = [[CNMutableContact alloc] init];
