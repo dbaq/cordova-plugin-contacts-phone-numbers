@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,6 +18,7 @@ import android.provider.ContactsContract.CommonDataKinds.StructuredName;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
+import static android.Manifest.permission.READ_CONTACTS;
 
 public class ContactsManager extends CordovaPlugin {
 
@@ -24,6 +26,8 @@ public class ContactsManager extends CordovaPlugin {
     
     private JSONArray executeArgs;
     
+    private static final int READ_CONTACTS_REQ_CODE = 0;
+
     public static final String ACTION_LIST_CONTACTS = "list";
     
     private static final String LOG_TAG = "Contact Phone Numbers";
@@ -42,19 +46,23 @@ public class ContactsManager extends CordovaPlugin {
         
         this.callbackContext = callbackContext;
         this.executeArgs = args; 
-        
+       
         if (ACTION_LIST_CONTACTS.equals(action)) {
-            this.cordova.getThreadPool().execute(new Runnable() {
-                public void run() {
-                    callbackContext.success(list());
-                }
-            });    
-            return true;
+          if (cordova.hasPermission(android.Manifest.permission.READ_CONTACTS)) {  
+              this.cordova.getThreadPool().execute(new Runnable() {
+                  public void run() {
+                      callbackContext.success(list());
+                  }
+             });
+          } else { 
+             cordova.requestPermission(this, READ_CONTACTS_REQ_CODE, android.Manifest.permission.READ_CONTACTS);
+          }  
+          return true;
         }
         
         return false;
     }
-    
+
     private JSONArray list() {
         JSONArray contacts = new JSONArray(); 
         ContentResolver cr = this.cordova.getActivity().getContentResolver();
