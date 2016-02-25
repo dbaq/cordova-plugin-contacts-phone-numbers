@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,17 +18,20 @@ import android.provider.ContactsContract.CommonDataKinds.StructuredName;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
+import static android.Manifest.permission.READ_CONTACTS;
 
 public class ContactsManager extends CordovaPlugin {
 
     private CallbackContext callbackContext;
-    
+
     private JSONArray executeArgs;
-    
+
+    private static final int READ_CONTACTS_REQ_CODE = 0;
+
     public static final String ACTION_LIST_CONTACTS = "list";
-    
+
     private static final String LOG_TAG = "Contact Phone Numbers";
-    
+
     public ContactsManager() {}
 
     /**
@@ -39,22 +43,41 @@ public class ContactsManager extends CordovaPlugin {
      * @return                  True if the action was valid, false otherwise.
      */
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-        
+
         this.callbackContext = callbackContext;
-        this.executeArgs = args; 
-        
+        this.executeArgs = args;
+
         if (ACTION_LIST_CONTACTS.equals(action)) {
-            this.cordova.getThreadPool().execute(new Runnable() {
-                public void run() {
-                    callbackContext.success(list());
-                }
-            });    
+            if (cordova.hasPermission(android.Manifest.permission.READ_CONTACTS)) {
+                execHelper();
+            } else {
+                cordova.requestPermission(this, READ_CONTACTS_REQ_CODE, android.Manifest.permission.READ_CONTACTS);
+            }
             return true;
         }
-        
         return false;
     }
-    
+
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException {
+        for (int r : grantResults) {
+            if (r == PackageManager.PERMISSION_DENIED) {
+                Log.d(LOG_TAG, "Permission denied");
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR,
+                                                 "User has denied permission"));
+                return;
+            }
+        }
+        execHelper();
+    }
+
+    private void execHelper() {
+        this.cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                callbackContext.success(list());
+            }
+        });
+    }
+
     private JSONArray list() {
         JSONArray contacts = new JSONArray(); 
         ContentResolver cr = this.cordova.getActivity().getContentResolver();
