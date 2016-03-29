@@ -29,7 +29,7 @@
     [self.commandDelegate runInBackground:^{
 
         CDVAddressBookPhoneNumberHelper* abHelper = [[CDVAddressBookPhoneNumberHelper alloc] init];
-        CDVContactsPhoneNumbers* __weak weakSelf = self; 
+        CDVContactsPhoneNumbers* __weak weakSelf = self;
 
         [abHelper createAddressBook: ^(ABAddressBookRef addrBook) {
             if (addrBook == NULL) { // permission was denied or other error - return error
@@ -87,17 +87,29 @@
                         [phoneNumberDictionary setObject: phoneLabel forKey:@"type"];
                         // adding this phone number to the list of phone numbers for this user
                         [phoneNumbersArray addObject:phoneNumberDictionary];
-                        
+
                         if (phoneNumberRef) CFRelease(phoneNumberRef);
                         if (phoneTypeLabelRef) CFRelease(phoneTypeLabelRef);
                     }
 
                     // creating the contact object
                     NSString *displayName;
+
                     NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue(ref, kABPersonFirstNameProperty);
                     if (!firstName)
                         firstName = @"";
                     displayName = firstName;
+
+                    NSString *middleName = (__bridge_transfer NSString*)ABRecordCopyValue(ref, kABPersonMiddleNameProperty);
+                    if (!middleName) {
+                        middleName = @"";
+                    }
+                    else {
+                        if (displayName.length)
+                            displayName = [displayName stringByAppendingString:@" "];
+                        displayName = [displayName stringByAppendingString:middleName];
+                    }
+
                     NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue(ref, kABPersonLastNameProperty);
                     if (!lastName) {
                         lastName = @"";
@@ -107,6 +119,7 @@
                             displayName = [displayName stringByAppendingString:@" "];
                         displayName = [displayName stringByAppendingString:lastName];
                     }
+
                     NSString *contactId = [NSString stringWithFormat:@"%d", ABRecordGetRecordID(ref)];
 
                     //NSLog(@"Name %@ - %@", displayName, contactId);
@@ -116,11 +129,12 @@
                     [contactDictionary setObject: displayName forKey:@"displayName"];
                     [contactDictionary setObject: firstName forKey:@"firstName"];
                     [contactDictionary setObject: lastName forKey:@"lastName"];
+                    [contactDictionary setObject: middleName forKey:@"middleName"];
                     [contactDictionary setObject: phoneNumbersArray forKey:@"phoneNumbers"];
 
                     //add the contact to the list to return
                     [contactsWithPhoneNumbers addObject:contactDictionary];
-                }                
+                }
                 CFRelease(phones);
             }
 
