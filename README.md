@@ -29,7 +29,7 @@ A full example could be:
          console.log(contacts[i].id + " - " + contacts[i].displayName);
          for(var j = 0; j < contacts[i].phoneNumbers.length; j++) {
             var phone = contacts[i].phoneNumbers[j];
-            console.log("===> " + phone.type + "  " + phone.number + " (" + phone.normalizedNumber+ ")"); 
+            console.log("===> " + phone.type + "  " + phone.number + " (" + phone.normalizedNumber+ ")");
          }
       }
    }, function(error) {
@@ -40,7 +40,7 @@ A full example could be:
 
 ## JSON Response format
 
-The success callback function contains an array of contacts. 
+The success callback function contains an array of contacts.
 
 Each entry contains:
 
@@ -54,6 +54,7 @@ Here is a sample of what you can get:
     [{
         "id": "1",
         "firstName": "Kate",
+        "middleName": "",
         "lastName": "Bell",
         "displayName": "Kate Bell",
         "phoneNumbers": [{
@@ -68,6 +69,7 @@ Here is a sample of what you can get:
     }, {
         "id": "2",
         "firstName": "Daniel",
+        "middleName": "",
         "lastName": "Higgins",
         "displayName": "Daniel Higgins",
         "phoneNumbers": [{
@@ -86,8 +88,9 @@ Here is a sample of what you can get:
     }, {
         "id": "3",
         "firstName": "John",
+        "middleName": "Paul",
         "lastName": "Appleseed",
-        "displayName": "John Appleseed",
+        "displayName": "John Paul Appleseed",
         "phoneNumbers": [{
             "number": "888-555-5512",
             "normalizedNumber": "888-555-5512",
@@ -114,39 +117,39 @@ I executed a small benchmark on my Nexus 5 with Lollipop. The code calls both pl
 
 **cordova-plugin-contacts**
 
-    *  1 call: 
+    *  1 call:
         try 1: 2.527s
         try 2: 2.581s
-        try 3: 2.221s 
-        
+        try 3: 2.221s
+
         => average of 2.443s
-        
-    * 10 calls: 
-        try 1: 6.048s 
-        try 2: 9.196s 
+
+    * 10 calls:
+        try 1: 6.048s
+        try 2: 9.196s
         try 3: 8.981s
-        
+
         => average of 8.075s for 10 calls
 
 **cordova-plugin-contacts-phone-numbers**
 
-    *  1 call 
-        try 1: 0.145s 
-        try 2: 0.185s 
+    *  1 call
+        try 1: 0.145s
+        try 2: 0.185s
         try 3: 0.286s
-        
+
         => average of 0.205s
-        
-    * 10 calls: 
-        try 1: 1.195s 
-        try 2: 1.211s 
+
+    * 10 calls:
+        try 1: 1.195s
+        try 2: 1.211s
         try 3: 1.351s
-        
+
         => average of 1.252s for 10 calls
 
 ## iOS and Android
 
-The plugin works with iOS and Android. 
+The plugin works with iOS and Android.
 
 iOS does not provide a normalized number like Android. So number === normalizedNumber for iOS.
 
