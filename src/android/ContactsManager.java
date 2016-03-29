@@ -79,11 +79,12 @@ public class ContactsManager extends CordovaPlugin {
     }
 
     private JSONArray list() {
-        JSONArray contacts = new JSONArray(); 
+        JSONArray contacts = new JSONArray();
         ContentResolver cr = this.cordova.getActivity().getContentResolver();
-        String[] projection = new String[] { 
+        String[] projection = new String[] {
             ContactsContract.Contacts.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME,
+            ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME,
             ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,
             ContactsContract.Contacts.HAS_PHONE_NUMBER,
             ContactsContract.CommonDataKinds.Phone.NUMBER,
@@ -94,7 +95,7 @@ public class ContactsManager extends CordovaPlugin {
         };
         // Retrieve only the contacts with a phone number at least
         Cursor cursor = cr.query(ContactsContract.Data.CONTENT_URI,
-                projection, 
+                projection,
                 ContactsContract.Contacts.HAS_PHONE_NUMBER + " = 1",
                 null,
                 ContactsContract.Data.CONTACT_ID + " ASC");
@@ -125,7 +126,7 @@ public class ContactsManager extends CordovaPlugin {
         try {
             if (c.getCount() > 0) {
                 while (c.moveToNext()) {
-                    contactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID)); 
+                    contactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID));
 
                     if (c.getPosition() == 0) // If we are in the first row set the oldContactId
                         oldContactId = contactId;
@@ -150,10 +151,11 @@ public class ContactsManager extends CordovaPlugin {
                     }
 
                     mimetype = c.getString(c.getColumnIndex(ContactsContract.Data.MIMETYPE)); // Grab the mimetype of the current row as it will be used in a lot of comparisons
-                    
+
                     if (mimetype.equals(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)) {
                         contact.put("firstName", c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME)));
                         contact.put("lastName", c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME)));
+                        contact.put("middleName", c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME)));
                         contact.put("displayName", c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
                     }
                     else if (mimetype.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
@@ -162,7 +164,7 @@ public class ContactsManager extends CordovaPlugin {
 
                     // Set the old contact ID
                     oldContactId = contactId;
-                } 
+                }
                 // Push the last contact into the contacts array
                 contact.put("phoneNumbers", phones);
                 contacts.put(contact);
@@ -194,7 +196,7 @@ public class ContactsManager extends CordovaPlugin {
      * Retrieve the type of the phone number based on the type code
      * @param type the code of the type
      * @return a string in caps representing the type of phone number
-     */    
+     */
     private String getPhoneTypeLabel(int type) {
         String label = "OTHER";
         if (type == Phone.TYPE_HOME)
@@ -203,7 +205,7 @@ public class ContactsManager extends CordovaPlugin {
             label = "MOBILE";
         else if (type == Phone.TYPE_WORK)
             label = "WORK";
-        
+
         return label;
     }
 }
