@@ -83,6 +83,7 @@ public class ContactsManager extends CordovaPlugin {
         ContentResolver cr = this.cordova.getActivity().getContentResolver();
         String[] projection = new String[] {
             ContactsContract.Contacts.DISPLAY_NAME,
+            ContactsContract.Contacts.PHOTO_THUMBNAIL_URI,
             ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME,
             ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME,
             ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,
@@ -157,6 +158,7 @@ public class ContactsManager extends CordovaPlugin {
                         contact.put("lastName", c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME)));
                         contact.put("middleName", c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME)));
                         contact.put("displayName", c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+                        contact.put("thumbnail", c.getString(c.getColumnIndex(ContactsContract.Contacts.PHOTO_THUMBNAIL_URI)));
                     }
                     else if (mimetype.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
                         phones.put(getPhoneNumber(c));
