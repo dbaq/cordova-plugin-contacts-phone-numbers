@@ -57,6 +57,7 @@ Here is a sample of what you can get:
         "middleName": "",
         "lastName": "Bell",
         "displayName": "Kate Bell",
+        "thumbnail": null,
         "phoneNumbers": [{
             "number": "(555) 564-8583",
             "normalizedNumber": "(555) 564-8583",
@@ -72,6 +73,7 @@ Here is a sample of what you can get:
         "middleName": "",
         "lastName": "Higgins",
         "displayName": "Daniel Higgins",
+        "thumbnail": null,
         "phoneNumbers": [{
             "number": "555-478-7672",
             "normalizedNumber": "555-478-7672",
@@ -91,6 +93,7 @@ Here is a sample of what you can get:
         "middleName": "Paul",
         "lastName": "Appleseed",
         "displayName": "John Paul Appleseed",
+        "thumbnail": "content://com.android.contacts/contacts/49/photo",
         "phoneNumbers": [{
             "number": "888-555-5512",
             "normalizedNumber": "888-555-5512",
