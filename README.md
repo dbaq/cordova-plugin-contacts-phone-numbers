@@ -156,6 +156,8 @@ The plugin works with iOS and Android.
 
 iOS does not provide a normalized number like Android. So number === normalizedNumber for iOS.
 
+The thumbnail is not returned on iOS, if you want iOS support, feel free to open a PR.
+
 The Android code is heavily inspired from the official plugin with some tweaks to improve the perfomances.
 
 ## Contributing
