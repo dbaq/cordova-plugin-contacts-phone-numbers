@@ -3,7 +3,7 @@
   "version": "0.0.9",
   "description": "Cordova Plugin to List Contacts Phone Numbers ",
   "cordova": {
-    "id": "com.dbaq.cordova.contactsPhoneNumbers",
+    "id": "cordova-plugin-contacts-phonenumbers",
     "platforms": [
       "android",
       "ios"
