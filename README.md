@@ -1,4 +1,5 @@
-# ContactsPhoneNumbers [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=dbaq&url=https://github.com/dbaq/cordova-plugin-contacts-phone-numbers&title=cordova-plugin-contacts-phone-numbers&language=en&tags=github&category=software)
+# ContactsPhoneNumbers
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers.svg' /></a>
 
 Cross-platform plugin for Cordova / PhoneGap to list all the contacts with at least a phone number.
 
