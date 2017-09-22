@@ -1,5 +1,5 @@
 # ContactsPhoneNumbers
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers.svg' /></a>
+<a target='_blank' href='https://app.codesponsor.io/link/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers.svg' /></a>
 
 Cross-platform plugin for Cordova / PhoneGap to list all the contacts with at least a phone number.
 
@@ -160,6 +160,18 @@ iOS does not provide a normalized number like Android. So number === normalizedN
 The thumbnail is not returned on iOS, if you want iOS support, feel free to open a PR.
 
 The Android code is heavily inspired from the official plugin with some tweaks to improve the perfomances.
+
+## Donations
+
+If your app is successful or if you are working for a company, please consider donating some beer money :beer::
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/dbaq/10)
+
+Or visit our sponsor:
+
+<a target='_blank' href='https://app.codesponsor.io/link/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers.svg' /></a>
+
+Keep in mind that I am maintaining this repository on my free time so thank you for considering a donation. :+1:
 
 ## Contributing
 
