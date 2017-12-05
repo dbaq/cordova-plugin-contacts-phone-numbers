@@ -1,6 +1,4 @@
 # ContactsPhoneNumbers
-<a target='_blank' href='https://app.codesponsor.io/link/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-contacts-phone-numbers.svg' /></a>
-
 Cross-platform plugin for Cordova / PhoneGap to list all the contacts with at least a phone number.
 
 ## Installing the plugin ##
