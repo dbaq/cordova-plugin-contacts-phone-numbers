@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-contacts-phonenumbers"
-    version="0.0.10">
+    version="0.0.11">
 
     <name>Contacts Phone Numbers</name>
     <description>Cordova Plugin to List Contacts Phone Numbers </description>
