@@ -44,5 +44,10 @@
         <framework src="AddressBook.framework" weak="true" />
         <framework src="AddressBookUI.framework" weak="true" />
         <framework src="CoreGraphics.framework" />
+
+        <preference name="CONTACTS_USAGE_DESCRIPTION" default="This app needs contacts access"/>
+        <config-file target="*-Info.plist" parent="NSContactsUsageDescription">
+            <string>$CONTACTS_USAGE_DESCRIPTION</string>
+        </config-file>
     </platform>
 </plugin>
