@@ -13,6 +13,10 @@ cordova plugin add https://github.com/dbaq/cordova-plugin-contacts-phone-numbers
 The plugin creates the object `navigator.contactsPhoneNumbers` with the methods
 
   `list(success, fail)`
+  
+Usage in typescript file
+
+`declare let navigator: any;`
 
 A full example could be:
 
